@@ -64,24 +64,29 @@ export default function Works() {
     ).matches;
     if (reducedMotion) return undefined;
 
+    let previousTime = Date.now();
+
     const advance = () => {
+      const time = Date.now();
+      const elapsed = Math.min(time - previousTime, 100);
+      previousTime = time;
       if (pausedRef.current || gsap.isTweening(viewport)) return;
 
       const step = getStep();
       if (!step) return;
 
       const loopWidth = step * projects.length;
-      viewport.scrollLeft += 0.55 * gsap.ticker.deltaRatio(60);
+      viewport.scrollLeft += elapsed * 0.033;
 
       if (viewport.scrollLeft >= loopWidth) {
         viewport.scrollLeft -= loopWidth;
       }
     };
 
-    gsap.ticker.add(advance);
+    const interval = window.setInterval(advance, 32);
 
     return () => {
-      gsap.ticker.remove(advance);
+      window.clearInterval(interval);
       gsap.killTweensOf(viewport);
     };
   }, [getStep]);
@@ -94,7 +99,7 @@ export default function Works() {
       <div className="works-header shell">
         <Reveal className="works-heading">
           <div>
-            <h2>Projets sélectionnés</h2>
+            <h2>Nos réalisations</h2>
             <p>Vol. 2009–2026</p>
           </div>
 
@@ -121,7 +126,7 @@ export default function Works() {
         className="works-viewport"
         ref={viewportRef}
         tabIndex={0}
-        aria-label="Projets sélectionnés, faites défiler horizontalement"
+        aria-label="Nos réalisations, faites défiler horizontalement"
         onClickCapture={(event) => {
           if (dragRef.current.moved) {
             event.preventDefault();
