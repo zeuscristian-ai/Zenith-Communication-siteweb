@@ -477,22 +477,26 @@ p {
 .logo-track {
   display: flex;
   width: max-content;
-  animation: marquee 35s linear infinite;
+  animation: marquee 75s linear infinite;
 }
 
 .logo-item {
   display: grid;
-  width: 180px;
-  height: 48px;
-  margin-inline: 22px;
+  flex: 0 0 150px;
+  width: 150px;
+  height: 100px;
+  margin-inline: 18px;
+  padding: 12px;
   place-items: center;
-  opacity: 0.38;
-  filter: grayscale(1) brightness(3);
+  box-sizing: border-box;
+  background: #f3f3f0;
+  opacity: 0.78;
 }
 
 .logo-item img {
-  max-width: 125px;
-  max-height: 42px;
+  width: 76px;
+  height: 76px;
+  object-fit: contain;
 }
 
 .works {
