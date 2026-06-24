@@ -1,56 +1,39 @@
-# Zenith Communication — base du site
+# Groupe Zenith — site React
 
-Cette base contient une copie statique compilée du site de référence. Elle a été
-réorganisée pour faciliter son adaptation au projet Zenith Communication.
+Le site est maintenant reconstruit en véritable projet React/Vite. La copie
+statique initiale est conservée dans `docs/legacy-index.html` uniquement comme
+référence visuelle.
 
 ## Structure
 
 ```text
 .
-├── index.html              # Page principale
-├── assets/
-│   ├── css/site.css        # Styles compilés
-│   ├── js/site.js          # Application React compilée
-│   └── fonts/              # Polices propres au site
-├── images/
-│   ├── hero/               # Images principales
-│   ├── case-studies/       # Projets et réalisations
-│   ├── logos/              # Logos clients
-│   ├── service-examples/   # Visuels des services
-│   ├── journal/            # Images des articles
-│   └── videos/             # Vidéos
-├── api/                    # Données JSON capturées pour le mode hors ligne
-├── vendor/                 # Ressources de fournisseurs externes
-└── docs/                   # Documentation de la copie initiale
+├── src/
+│   ├── components/         # Une section React par fichier
+│   ├── data/content.js     # Textes, projets et services
+│   ├── styles/global.css   # Direction artistique et responsive
+│   ├── App.jsx             # Composition de la page
+│   └── main.jsx            # Point d’entrée React
+├── public/
+│   ├── images/             # Images et vidéos
+│   ├── fonts/              # Polices du site
+│   └── vendor/             # Polices externes locales
+├── docs/
+│   ├── legacy-index.html   # Ancienne page compilée
+│   ├── legacy-assets/      # Ancien bundle CSS/JavaScript
+│   ├── legacy-api/         # Anciennes données hors ligne
+│   └── legacy-scripts/     # Ancien script de traduction
+├── PRODUCT.md              # Positionnement de Zenith
+└── DESIGN.md               # Système visuel
 ```
 
 ## Lancer le site
 
-Depuis la racine du projet :
+Installer les dépendances puis démarrer le serveur :
 
 ```powershell
-python -m http.server 8001 --bind 127.0.0.1
+npm install
+npm run dev
 ```
 
-Puis ouvrir <http://127.0.0.1:8001/>.
-
-## Traduction française
-
-La traduction de l’interface est automatisée dans :
-
-```text
-scripts/translate-fr.mjs
-```
-
-Pour la réappliquer :
-
-```powershell
-node scripts/translate-fr.mjs
-```
-
-## Important
-
-Le fichier `assets/js/site.js` est un bundle React déjà compilé : ce n'est pas le
-code source React original. Les textes et les composants pourront être adaptés,
-mais une reconstruction en vrais fichiers source sera plus confortable pour une
-refonte importante.
+Puis ouvrir <http://127.0.0.1:5173/>.
