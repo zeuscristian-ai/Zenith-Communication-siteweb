@@ -1,0 +1,39 @@
+========================================================
+  Website Downloader — Download Report
+  https://websitedownloader.io
+========================================================
+
+Status:         Paused (page limit reached)
+Started at:     2026-06-24 16:05:11 UTC
+Paused at:      2026-06-24 16:08:25 UTC
+Download ID:    01KVX61E6KMC8HB5XSC8Q9KP12
+
+--- Source ---
+URL:            https://unfold.co
+Resolved URL:   https://unfold.co/
+
+--- Settings ---
+Mode:           Full site (auto)
+URL rewriting:  Relative (works offline)
+Max pages:      1
+Max depth:      1
+
+--- Results ---
+HTML pages:     1 of ~38 estimated
+Total files:    97
+Duration:       3m 14s
+
+--- JavaScript Rendering ---
+Rendered pages: 38
+Static pages:   3
+
+========================================================
+  Download paused — upgrade to get all your pages
+--------------------------------------------------------
+  You hit the page limit for your current plan.
+  Upgrade and resume this download to grab the rest:
+  https://websitedownloader.io/upgrade
+
+  - Pro:       up to 200 pages per download, 1-hour timeout
+  - Unlimited: unlimited pages, unlimited depth, 24-hour timeout
+========================================================
