@@ -5,7 +5,7 @@ export const heroSlides = [
     title: "Des idées qui prennent position",
   },
   {
-    image: "/images/hero/xrp-cover.png",
+    image: "/images/hero/zenith-city-hero.jpeg",
     label: "Régie publicitaire",
     title: "Une présence qui se remarque",
   },

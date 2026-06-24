@@ -50,8 +50,8 @@ export default function Hero() {
             <small>{heroSlides[active].label}</small>
             <strong>{heroSlides[active].title}</strong>
           </div>
-          <a className="ghost-button" href="#projets">
-            Découvrir <span>→</span>
+          <a className="ghost-button" href="#contact">
+            Nous Contacter <span>→</span>
           </a>
         </div>
       </div>
