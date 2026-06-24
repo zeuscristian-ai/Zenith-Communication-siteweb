@@ -51,8 +51,8 @@ export default function Header() {
           Services
           <span className="services-caret" aria-hidden="true" />
         </a>
-        <a href="#agence" onClick={() => setOpen(false)}>L’agence</a>
-        <a href="#contact" onClick={() => setOpen(false)}>Travaillons ensemble</a>
+        <a href="#agence" onClick={() => setOpen(false)}>Qui sommes-nous ?</a>
+        <a href="#contact" onClick={() => setOpen(false)}>Nous Contacter</a>
       </nav>
 
       <button
