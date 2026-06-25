@@ -27,7 +27,6 @@ export default function Hero() {
       </div>
 
       <div className="hero-content shell">
-        <span className="hero-kicker">Communication intégrée · Lomé</span>
         <h1>
           <span>Agence</span> <span>pour les</span>
           <br />
