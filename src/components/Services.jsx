@@ -1,9 +1,10 @@
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { services } from "../data/content";
 
 export default function Services() {
   const sectionRef = useRef(null);
+  const [activeService, setActiveService] = useState(null);
 
   useLayoutEffect(() => {
     let observer;
@@ -17,12 +18,15 @@ export default function Services() {
       const eyebrow = sectionRef.current.querySelector(".services-eyebrow");
       const title = sectionRef.current.querySelector(".services-title");
       const cta = sectionRef.current.querySelector(".services-cta");
-      const rows = gsap.utils.toArray(".service-row");
+      const rows = gsap.utils.toArray(".service-item");
 
       gsap.set([eyebrow, title, cta], { autoAlpha: 0, y: 28 });
       gsap.set(rows, { autoAlpha: 0, y: 34 });
       rows.forEach((row) => {
-        gsap.set(row.children, { autoAlpha: 0, y: 18 });
+        gsap.set(row.querySelector(".service-row").children, {
+          autoAlpha: 0,
+          y: 18,
+        });
       });
 
       observer = new IntersectionObserver(
@@ -48,7 +52,7 @@ export default function Services() {
                 position,
               )
               .to(
-                row.children,
+                row.querySelector(".service-row").children,
                 {
                   autoAlpha: 1,
                   y: 0,
@@ -93,16 +97,67 @@ export default function Services() {
         </div>
 
         <div className="service-list">
-          {services.map((service, index) => (
-            <a className="service-row" href="#contact" key={service.title}>
-              <span className="service-number">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-              <span className="service-arrow">→</span>
-            </a>
-          ))}
+          {services.map((service, index) => {
+            const isActive = activeService === index;
+
+            return (
+              <div
+                className={`service-item ${isActive ? "is-active" : ""}`}
+                key={service.title}
+                onMouseEnter={() => setActiveService(index)}
+                onMouseLeave={() => setActiveService(null)}
+                onFocusCapture={() => setActiveService(index)}
+                onBlurCapture={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) {
+                    setActiveService(null);
+                  }
+                }}
+              >
+                <button
+                  className="service-row"
+                  type="button"
+                  aria-expanded={isActive}
+                  aria-controls={`service-gallery-${index}`}
+                  onClick={() =>
+                    setActiveService(isActive ? null : index)
+                  }
+                >
+                  <span className="service-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                  <span className="service-arrow" aria-hidden="true">→</span>
+                </button>
+
+                <div
+                  className="service-gallery"
+                  id={`service-gallery-${index}`}
+                  aria-hidden={!isActive}
+                >
+                  <div className="service-gallery-inner">
+                    <div className="service-gallery-images">
+                      {service.images.map((image, imageIndex) => (
+                        <figure
+                          style={{ "--image-index": imageIndex }}
+                          key={image}
+                        >
+                          <img src={image} alt="" />
+                        </figure>
+                      ))}
+                    </div>
+                    <a
+                      className="service-gallery-link"
+                      href="#contact"
+                      tabIndex={isActive ? 0 : -1}
+                    >
+                      Découvrir cette expertise <span>↗</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

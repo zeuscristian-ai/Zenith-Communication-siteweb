@@ -66,31 +66,61 @@ export const services = [
     title: "Stratégie & conseil",
     description:
       "Conseil en communication, stratégie marketing, études de marché et accompagnement dans la mise en œuvre.",
+    images: [
+      "/images/case-studies/solana-grizzly-3.png",
+      "/images/case-studies/fb-8.png",
+      "/images/case-studies/merck-1.png",
+    ],
   },
   {
     title: "Création graphique",
     description:
       "Identités visuelles, logotypes, chartes graphiques, packaging et supports imprimés.",
+    images: [
+      "/images/service-examples/service-branding-6.png",
+      "/images/service-examples/service-illustration-35.png",
+      "/images/service-examples/services-print-16.png",
+    ],
   },
   {
     title: "Régie publicitaire",
     description:
       "Affichage multiformat, médiaplanning et couverture des axes stratégiques sur le territoire national.",
+    images: [
+      "/images/hero/zenith-city-hero.jpeg",
+      "/images/case-studies/lamar-2.png",
+      "/images/hero/lamar-cover.png",
+    ],
   },
   {
     title: "Production audiovisuelle",
     description:
       "Spots TV et radio, documentaires, publi-reportages et studio d’enregistrement.",
+    images: [
+      "/images/case-studies/brainfm-1.png",
+      "/images/case-studies/peacock-2.png",
+      "/images/case-studies/rumble-hero.png",
+    ],
   },
   {
     title: "Événementiel",
     description:
       "Lancements, soirées d’entreprise, sonorisation, podiums, animations et dispositifs commerciaux.",
+    images: [
+      "/images/case-studies/solana-breakpoint-1.png",
+      "/images/case-studies/SolanaSummer-1.png",
+      "/images/hero/facebook-cover.png",
+    ],
   },
   {
     title: "Publicité par l’objet",
     description:
       "Cadeaux d’entreprise et objets personnalisés conçus dans le respect de votre identité.",
+    images: [
+      "/images/service-examples/services-print-4.png",
+      "/images/service-examples/services-print-13.png",
+      "/images/service-examples/services-print-15.png",
+    ],
   },
 ];
 
