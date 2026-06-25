@@ -17,8 +17,8 @@ export default function App() {
         <Hero />
         <LogoMarquee />
         <Works />
-        <Studio />
         <Services />
+        <Studio />
         <Industries />
         <Milestones />
         <Insights />

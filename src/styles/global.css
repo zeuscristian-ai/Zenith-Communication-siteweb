@@ -1403,6 +1403,7 @@ p {
   --section-title-size: 64px;
 }
 
+html,
 body {
   background: var(--paper);
 }
