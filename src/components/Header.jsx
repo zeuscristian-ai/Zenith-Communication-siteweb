@@ -32,7 +32,7 @@ export default function Header() {
       </a>
 
       <nav className={`desktop-nav ${open ? "is-open" : ""}`} aria-label="Navigation principale">
-        <a href="#projets" onClick={() => setOpen(false)}>Réalisations</a>
+        <a href="#agence" onClick={() => setOpen(false)}>L’agence</a>
         <a
           className="services-trigger"
           href="#services"
@@ -48,11 +48,13 @@ export default function Header() {
             setOpen(false);
           }}
         >
-          Services
+          Expertises
           <span className="services-caret" aria-hidden="true" />
         </a>
-        <a href="#agence" onClick={() => setOpen(false)}>Qui sommes-nous ?</a>
-        <a href="#contact" onClick={() => setOpen(false)}>Nous Contacter</a>
+        <a href="#projets" onClick={() => setOpen(false)}>Réalisations</a>
+        <a className="nav-cta" href="#contact" onClick={() => setOpen(false)}>
+          Nous contacter
+        </a>
       </nav>
 
       <button

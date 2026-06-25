@@ -2,19 +2,19 @@
 
 ## Direction
 
-Reproduction fidèle du site de référence : composition éditoriale premium,
-alternance de surfaces sombres et claires, typographie monumentale, images
-plein cadre, lignes fines et animations lentes.
+Identité institutionnelle contemporaine adaptée aux métiers de la communication :
+surfaces claires et calmes, bleu Zenith utilisé avec parcimonie, séquences bleu
+nuit, typographie légère, images de campagnes généreuses et géométrie arrondie.
 
 ## Colors
 
-- Background: `#1a1a1a`
-- Paper: `#f0f0f0`
-- Foreground: `#e6e6e6`
-- Secondary text: `#999999`
-- Muted text: `#666666`
-- Fine dark border: `rgba(255, 255, 255, 0.1)`
-- Fine light border: `rgba(0, 0, 0, 0.1)`
+- Ink / dark surface: `oklch(0.2 0.035 247)`
+- Paper: `oklch(0.985 0.006 245)`
+- Soft surface: `oklch(0.96 0.01 245)`
+- Strong surface: `oklch(0.925 0.018 245)`
+- Zenith blue: `oklch(0.56 0.18 246)`
+- Muted text: `oklch(0.52 0.025 245)`
+- Hairline: `oklch(0.88 0.015 245)`
 
 ## Typography
 
@@ -25,11 +25,12 @@ plein cadre, lignes fines et animations lentes.
 
 ## Layout
 
-- Maximum content width: 1600px
+- Maximum content width: 1320px
 - Horizontal page padding: 4vw
 - Mobile navigation below 768px
-- Sections use generous vertical spacing from 64px to 160px
-- Image-led project layouts alternate proportions and alignment
+- Sections use generous vertical spacing from 72px to 160px
+- Cards use 24px corners; interactive controls use pill geometry
+- Dark editorial bands are inset from the viewport on large screens
 
 ## Motion
 
@@ -40,12 +41,13 @@ plein cadre, lignes fines et animations lentes.
 
 ## Components
 
-- Fixed difference-blend navigation
+- Fixed white navigation with a blue contact CTA
 - Full viewport hero
 - Client logo marquee
-- Editorial project grid
+- Rounded editorial project carousel
+- Agency pillars panel
+- Inset dark industry index
 - Numbered service rows
-- Industry index
-- Milestone timeline
+- Metric cards with animated counters
 - Insight cards
-- Oversized closing call to action
+- Inset dark closing call to action

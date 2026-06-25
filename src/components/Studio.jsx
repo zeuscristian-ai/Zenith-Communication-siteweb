@@ -1,6 +1,5 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
-import Reveal from "./Reveal";
 
 export default function Studio() {
   const sectionRef = useRef(null);
@@ -8,53 +7,51 @@ export default function Studio() {
   useLayoutEffect(() => {
     let observer;
     const context = gsap.context(() => {
-      const counters = gsap.utils.toArray(".studio-counter");
+      const blocks = gsap.utils.toArray(".studio-stat");
+      const introElements = gsap.utils.toArray(".studio-intro > *");
       const reducedMotion = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
       ).matches;
 
-      const animateCounters = () => {
-        counters.forEach((counter, index) => {
-          const target = Number(counter.dataset.value);
-          const suffix = counter.dataset.suffix || "";
-          const digits = Number(counter.dataset.digits || 1);
-          const state = { value: 0 };
+      if (reducedMotion) return;
 
-          const render = () => {
-            counter.textContent =
-              String(Math.round(state.value)).padStart(digits, "0") + suffix;
-          };
-
-          render();
-
-          gsap.to(state, {
-            value: target,
-            duration: 2.1,
-            delay: index * 0.12,
-            ease: "power3.out",
-            onUpdate: render,
-          });
-        });
-      };
-
-      counters.forEach((counter) => {
-        const target = Number(counter.dataset.value);
-        const suffix = counter.dataset.suffix || "";
-        const digits = Number(counter.dataset.digits || 1);
-        counter.textContent = reducedMotion
-          ? String(target).padStart(digits, "0") + suffix
-          : String(0).padStart(digits, "0") + suffix;
+      gsap.set(introElements, { autoAlpha: 0, y: 28 });
+      blocks.forEach((block) => {
+        gsap.set(block.children, { autoAlpha: 0, y: 24 });
       });
-
-      if (reducedMotion) return undefined;
 
       observer = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) return;
-          animateCounters();
+
+          const timeline = gsap.timeline({
+            defaults: { ease: "power4.out" },
+          });
+
+          timeline.to(introElements, {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.12,
+          });
+
+          blocks.forEach((block, index) => {
+            timeline
+              .to(
+                block.querySelector("strong"),
+                { autoAlpha: 1, y: 0, duration: 0.7 },
+                index === 0 ? "-=0.2" : "-=0.25",
+              )
+              .to(
+                block.querySelector("span"),
+                { autoAlpha: 1, y: 0, duration: 0.5 },
+                "-=0.38",
+              );
+          });
+
           observer.disconnect();
         },
-        { threshold: 0.2 },
+        { threshold: 0.22, rootMargin: "0px 0px -8% 0px" },
       );
 
       observer.observe(sectionRef.current);
@@ -67,50 +64,40 @@ export default function Studio() {
   }, []);
 
   return (
-    <section className="studio paper-section" id="agence" ref={sectionRef}>
+    <section
+      className="studio paper-section"
+      id="agence"
+      ref={sectionRef}
+    >
       <div className="shell studio-grid">
-        <Reveal>
-          <span className="eyebrow">Groupe Zenith</span>
+        <div className="studio-intro">
+          <span className="eyebrow">Notre positionnement</span>
           <h2>
-            Le terrain,
+            Penser juste,
             <br />
-            <em>amplifié.</em>
+            <em>agir fort.</em>
           </h2>
           <p>
-            Une agence dynamique et créative qui accompagne les marques au Togo
-            et dans la sous-région, de la réflexion stratégique jusqu’à
-            l’exécution.
+            Nous ne faisons pas seulement de belles campagnes. Nous construisons
+            une direction claire, une identité cohérente et un déploiement
+            capable de produire un impact réel sur le terrain.
           </p>
-        </Reveal>
+        </div>
 
-        <Reveal className="studio-stats" delay={100}>
-          <div>
-            <strong className="studio-counter" data-value="2009">
-              0
-            </strong>
-            <span>Présents sur le marché togolais</span>
+        <div className="studio-stats">
+          <div className="studio-stat">
+            <strong>Conseil</strong>
+            <span>Comprendre le marché, les publics et les objectifs</span>
           </div>
-          <div>
-            <strong
-              className="studio-counter"
-              data-value="360"
-              data-suffix="°"
-            >
-              0°
-            </strong>
-            <span>Une communication pensée de bout en bout</span>
+          <div className="studio-stat">
+            <strong>Création</strong>
+            <span>Donner au message une forme claire et mémorable</span>
           </div>
-          <div>
-            <strong
-              className="studio-counter"
-              data-value="1"
-              data-digits="2"
-            >
-              00
-            </strong>
-            <span>Un partenaire pour tous vos points de contact</span>
+          <div className="studio-stat">
+            <strong>Terrain</strong>
+            <span>Déployer les idées là où elles rencontrent leur public</span>
           </div>
-        </Reveal>
+        </div>
       </div>
     </section>
   );
