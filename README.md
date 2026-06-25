@@ -1,8 +1,5 @@
 # Groupe Zenith — site React
-
-Le site est maintenant reconstruit en véritable projet React/Vite. La copie
-statique initiale est conservée dans `docs/legacy-index.html` uniquement comme
-référence visuelle.
+Par Zeus Cristian
 
 ## Structure
 
