@@ -135,10 +135,10 @@ export const industries = [
 ];
 
 export const milestones = [
-  ["2009", "Création de Groupe Zenith à Lomé"],
-  ["360°", "Conseil, création, médias et terrain réunis"],
-  ["Togo", "Une régie d’affichage à couverture nationale"],
-  ["Sous-région", "Une expertise déployée au-delà des frontières"],
+  ["2009", "Année de création"],
+  ["1120+", "Supports d’affichage exploités"],
+  ["112+", "Communes couvertes au Togo"],
+  ["4+", "Pays d’intervention en Afrique de l’Ouest"],
 ];
 
 export const insights = [

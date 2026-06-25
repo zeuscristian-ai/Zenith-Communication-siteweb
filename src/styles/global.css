@@ -963,11 +963,11 @@ p {
 
 .milestone span {
   display: block;
-  max-width: 25ch;
-  margin-top: 12px;
+  max-width: 28ch;
+  margin-top: 14px;
   color: #777;
-  font-size: 12px;
-  line-height: 1.6;
+  font-size: clamp(0.82rem, 0.9vw, 0.95rem);
+  line-height: 1.55;
 }
 
 .quote {
