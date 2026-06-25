@@ -4,7 +4,8 @@ export default function Footer() {
       <div className="footer-cta shell">
         <p>Vous avez un projet en tête ?</p>
         <a href="tel:+22890897744">
-          Parlons-en <span>↗</span>
+          Parlons-en
+          <span className="footer-cta-button" aria-hidden="true">↗</span>
         </a>
       </div>
 

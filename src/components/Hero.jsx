@@ -27,6 +27,7 @@ export default function Hero() {
       </div>
 
       <div className="hero-content shell">
+        <span className="hero-kicker">Communication intégrée · Lomé</span>
         <h1>
           <span>Agence</span> <span>pour les</span>
           <br />
@@ -51,7 +52,7 @@ export default function Hero() {
             <strong>{heroSlides[active].title}</strong>
           </div>
           <a className="ghost-button" href="#contact">
-            Nous Contacter <span>→</span>
+            Démarrer un projet <span>→</span>
           </a>
         </div>
       </div>

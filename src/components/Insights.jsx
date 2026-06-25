@@ -6,7 +6,10 @@ export default function Insights() {
     <section className="insights paper-section">
       <div className="shell">
         <Reveal className="section-heading insights-title">
-          <h2>Points de vue</h2>
+          <div>
+            <span className="eyebrow">Notre regard</span>
+            <h2>Points de vue</h2>
+          </div>
         </Reveal>
         <div className="insight-grid">
           {insights.map((insight, index) => (

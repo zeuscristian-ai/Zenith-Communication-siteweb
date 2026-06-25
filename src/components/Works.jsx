@@ -3,9 +3,13 @@ import { gsap } from "gsap";
 import { projects } from "../data/content";
 import Reveal from "./Reveal";
 
+const AUTO_SCROLL_SPEED = 0.055;
+
 export default function Works() {
   const viewportRef = useRef(null);
   const pausedRef = useRef(false);
+  const loopWidthRef = useRef(0);
+  const wheelVelocityRef = useRef(0);
   const dragRef = useRef({
     active: false,
     moved: false,
@@ -64,29 +68,49 @@ export default function Works() {
     ).matches;
     if (reducedMotion) return undefined;
 
-    let previousTime = Date.now();
+    let frame;
+    let previousTime = performance.now();
 
-    const advance = () => {
-      const time = Date.now();
-      const elapsed = Math.min(time - previousTime, 100);
-      previousTime = time;
-      if (pausedRef.current || gsap.isTweening(viewport)) return;
-
-      const step = getStep();
-      if (!step) return;
-
-      const loopWidth = step * projects.length;
-      viewport.scrollLeft += elapsed * 0.033;
-
-      if (viewport.scrollLeft >= loopWidth) {
-        viewport.scrollLeft -= loopWidth;
-      }
+    const updateMetrics = () => {
+      loopWidthRef.current = getStep() * projects.length;
     };
 
-    const interval = window.setInterval(advance, 32);
+    const advance = (time) => {
+      const elapsed = Math.min(time - previousTime, 34);
+      previousTime = time;
+
+      if (!pausedRef.current && !gsap.isTweening(viewport)) {
+        const loopWidth = loopWidthRef.current;
+        const wheelVelocity = wheelVelocityRef.current;
+
+        viewport.scrollLeft +=
+          elapsed * (AUTO_SCROLL_SPEED + wheelVelocity);
+        wheelVelocityRef.current *= Math.pow(0.88, elapsed / 16.67);
+
+        if (Math.abs(wheelVelocityRef.current) < 0.002) {
+          wheelVelocityRef.current = 0;
+        }
+
+        if (loopWidth > 0) {
+          if (viewport.scrollLeft >= loopWidth) {
+            viewport.scrollLeft -= loopWidth;
+          } else if (viewport.scrollLeft < 0) {
+            viewport.scrollLeft += loopWidth;
+          }
+        }
+      }
+
+      frame = window.requestAnimationFrame(advance);
+    };
+
+    updateMetrics();
+    const resizeObserver = new ResizeObserver(updateMetrics);
+    resizeObserver.observe(viewport);
+    frame = window.requestAnimationFrame(advance);
 
     return () => {
-      window.clearInterval(interval);
+      window.cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
       gsap.killTweensOf(viewport);
     };
   }, [getStep]);
@@ -99,8 +123,8 @@ export default function Works() {
       <div className="works-header shell">
         <Reveal className="works-heading">
           <div>
-            <h2>Nos réalisations</h2>
-            <p>Vol. 2009–2026</p>
+            <h2>Le travail parle</h2>
+            <p>Sélection de réalisations · 2009–2026</p>
           </div>
 
           <div className="works-controls" aria-label="Navigation des projets">
@@ -167,23 +191,15 @@ export default function Works() {
         }}
         onWheel={(event) => {
           event.preventDefault();
-          const viewport = event.currentTarget;
-          const step = getStep();
-          if (!step) return;
-
-          const loopWidth = step * projects.length;
           const delta =
             Math.abs(event.deltaX) > Math.abs(event.deltaY)
               ? event.deltaX
               : event.deltaY;
 
-          viewport.scrollLeft += delta * 0.65;
-
-          if (viewport.scrollLeft >= loopWidth) {
-            viewport.scrollLeft -= loopWidth;
-          } else if (viewport.scrollLeft < 0) {
-            viewport.scrollLeft += loopWidth;
-          }
+          wheelVelocityRef.current = Math.max(
+            -1.8,
+            Math.min(1.8, wheelVelocityRef.current + delta * 0.008),
+          );
         }}
         onKeyDown={(event) => {
           if (event.key === "ArrowLeft") {
