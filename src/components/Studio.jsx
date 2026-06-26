@@ -15,9 +15,9 @@ export default function Studio() {
 
       if (reducedMotion) return;
 
-      gsap.set(introElements, { autoAlpha: 0, y: 28 });
+      gsap.set(introElements, { autoAlpha: 0, y: 24, force3D: true });
       blocks.forEach((block) => {
-        gsap.set(block.children, { autoAlpha: 0, y: 24 });
+        gsap.set(block.children, { autoAlpha: 0, y: 20, force3D: true });
       });
 
       observer = new IntersectionObserver(
@@ -25,26 +25,26 @@ export default function Studio() {
           if (!entry.isIntersecting) return;
 
           const timeline = gsap.timeline({
-            defaults: { ease: "power4.out" },
+            defaults: { ease: "expo.out" },
           });
 
           timeline.to(introElements, {
             autoAlpha: 1,
             y: 0,
-            duration: 0.7,
-            stagger: 0.12,
+            duration: 0.68,
+            stagger: 0.1,
           });
 
           blocks.forEach((block, index) => {
             timeline
               .to(
                 block.querySelector("strong"),
-                { autoAlpha: 1, y: 0, duration: 0.7 },
+                { autoAlpha: 1, y: 0, duration: 0.64 },
                 index === 0 ? "-=0.2" : "-=0.25",
               )
               .to(
                 block.querySelector("span"),
-                { autoAlpha: 1, y: 0, duration: 0.5 },
+                { autoAlpha: 1, y: 0, duration: 0.46 },
                 "-=0.38",
               );
           });

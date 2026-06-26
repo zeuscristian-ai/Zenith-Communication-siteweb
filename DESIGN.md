@@ -12,7 +12,7 @@ nuit, typographie légère, images de campagnes généreuses et géométrie arro
 - Paper: `oklch(0.985 0.006 245)`
 - Soft surface: `oklch(0.96 0.01 245)`
 - Strong surface: `oklch(0.925 0.018 245)`
-- Zenith blue: `oklch(0.56 0.18 246)`
+- Zenith blue: `#0659B2` (`oklch(0.474 0.158 256)`)
 - Muted text: `oklch(0.52 0.025 245)`
 - Hairline: `oklch(0.88 0.015 245)`
 

@@ -35,7 +35,15 @@
   --gray: #999;
   --muted: #666;
   --page-pad: clamp(20px, 4vw, 64px);
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease: var(--ease-out-quint);
+  --motion-fast: 180ms;
+  --motion-medium: 320ms;
+  --motion-slow: 680ms;
+  --motion-entrance: 900ms;
 }
 
 * {
@@ -111,9 +119,11 @@ p {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   mix-blend-mode: normal;
   transition:
-    padding 0.4s var(--ease),
-    background-color 0.3s var(--ease),
-    color 0.3s var(--ease);
+    min-height var(--motion-medium) var(--ease),
+    padding var(--motion-medium) var(--ease),
+    background-color var(--motion-medium) var(--ease),
+    color var(--motion-medium) var(--ease),
+    box-shadow var(--motion-medium) var(--ease);
 }
 
 .site-header.is-compact {
@@ -137,7 +147,15 @@ p {
   width: 64px;
   height: 64px;
   object-fit: contain;
-  transition: width 0.35s var(--ease), height 0.35s var(--ease);
+  transition:
+    width var(--motion-medium) var(--ease),
+    height var(--motion-medium) var(--ease),
+    transform var(--motion-fast) var(--ease-out-expo);
+}
+
+.wordmark:hover .wordmark-logo,
+.wordmark:focus-visible .wordmark-logo {
+  transform: translateY(-1px) scale(1.015);
 }
 
 .site-header.is-compact .wordmark-logo {
@@ -158,11 +176,14 @@ p {
   color: var(--ink);
   font-size: 14px;
   font-weight: 300;
-  transition: opacity 0.2s;
+  transition:
+    opacity var(--motion-fast) var(--ease-out-expo),
+    transform var(--motion-fast) var(--ease-out-expo);
 }
 
 .desktop-nav a:hover {
   opacity: 0.55;
+  transform: translateY(-1px);
 }
 
 .services-caret {
@@ -171,7 +192,7 @@ p {
   border-right: 1px solid currentColor;
   border-bottom: 1px solid currentColor;
   transform: translateY(-2px) rotate(45deg);
-  transition: transform 0.3s var(--ease);
+  transition: transform var(--motion-medium) var(--ease);
 }
 
 .site-header.has-mega-menu .services-caret {
@@ -190,12 +211,13 @@ p {
   border-top: 1px solid rgba(0, 0, 0, 0.08);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-16px);
+  transform: translate3d(0, -14px, 0);
   visibility: hidden;
   transition:
-    opacity 0.35s var(--ease),
-    transform 0.45s var(--ease),
-    visibility 0s linear 0.45s;
+    opacity var(--motion-medium) var(--ease),
+    transform 480ms var(--ease-out-expo),
+    visibility 0s linear 480ms;
+  will-change: opacity, transform;
 }
 
 .services-mega-menu.is-open {
@@ -252,7 +274,8 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.65s var(--ease);
+  transition: transform 860ms var(--ease-out-quart);
+  will-change: transform;
 }
 
 .mega-service:hover .mega-service-image img,
@@ -306,7 +329,7 @@ p {
 .mega-menu-footer i {
   color: #777;
   font-style: normal;
-  transition: transform 0.3s var(--ease);
+  transition: transform var(--motion-medium) var(--ease-out-expo);
 }
 
 .mega-menu-footer a:hover i {
@@ -326,7 +349,9 @@ p {
   height: 2px;
   margin: 5px 0;
   background: var(--ink);
-  transition: transform 0.3s, opacity 0.3s;
+  transition:
+    transform var(--motion-medium) var(--ease),
+    opacity var(--motion-medium) var(--ease);
 }
 
 .hero {
@@ -349,15 +374,19 @@ p {
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transform: scale(1.04);
+  transform: scale(1.075);
   filter: brightness(0.57);
-  transition: opacity 1.2s var(--ease), transform 7s linear;
+  transition:
+    opacity 1400ms var(--ease-out-expo),
+    transform 6800ms var(--ease-out-quart),
+    filter 1400ms var(--ease-out-quart);
+  will-change: opacity, transform;
 }
 
 .hero-media img.is-active {
   z-index: 1;
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1.015);
 }
 
 .hero-shade {
@@ -384,6 +413,44 @@ p {
   font-weight: 100;
   letter-spacing: -0.055em;
   line-height: 0.82;
+}
+
+.hero h1 span,
+.hero h1 em {
+  display: inline-block;
+}
+
+.hero h1 span,
+.hero h1 em,
+.hero-content > p,
+.hero-controls {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  animation: hero-rise var(--motion-entrance) var(--ease-out-expo) forwards;
+}
+
+.hero h1 span:nth-of-type(1) {
+  animation-delay: 120ms;
+}
+
+.hero h1 span:nth-of-type(2) {
+  animation-delay: 190ms;
+}
+
+.hero h1 em {
+  animation-delay: 260ms;
+}
+
+.hero h1 span:nth-of-type(3) {
+  animation-delay: 330ms;
+}
+
+.hero-content > p {
+  animation-delay: 470ms;
+}
+
+.hero-controls {
+  animation-delay: 600ms;
 }
 
 .hero h1 em {
@@ -422,7 +489,9 @@ p {
   border: 0;
   background: rgba(255, 255, 255, 0.28);
   cursor: pointer;
-  transition: width 0.4s, background 0.4s;
+  transition:
+    width 0.4s var(--ease),
+    background-color 0.4s var(--ease);
 }
 
 .hero-dots button.is-active {
@@ -435,6 +504,7 @@ p {
   flex-direction: column;
   margin-left: auto;
   text-align: right;
+  animation: slide-copy-in 520ms var(--ease-out-expo) both;
 }
 
 .hero-slide-copy small,
@@ -461,11 +531,14 @@ p {
   font-size: 11px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  transition: background 0.25s;
+  transition:
+    background-color var(--motion-fast) var(--ease-out-expo),
+    transform var(--motion-fast) var(--ease-out-expo);
 }
 
 .ghost-button:hover {
   background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
 }
 
 .logo-marquee {
@@ -478,6 +551,11 @@ p {
   display: flex;
   width: max-content;
   animation: marquee 75s linear infinite;
+  will-change: transform;
+}
+
+.logo-marquee:hover .logo-track {
+  animation-play-state: paused;
 }
 
 .logo-item {
@@ -545,12 +623,17 @@ p {
   font-size: 19px;
   line-height: 1;
   cursor: pointer;
-  transition: color 0.25s, background 0.25s, opacity 0.25s;
+  transition:
+    color var(--motion-fast) var(--ease-out-expo),
+    background-color var(--motion-fast) var(--ease-out-expo),
+    opacity var(--motion-fast) var(--ease-out-expo),
+    transform var(--motion-fast) var(--ease-out-expo);
 }
 
 .works-controls button:hover:not(:disabled) {
   color: var(--paper);
   background: var(--ink);
+  transform: translateY(-1px) scale(1.02);
 }
 
 .works-controls button:disabled {
@@ -596,6 +679,12 @@ p {
 
 .project-card a {
   display: block;
+  transition: transform var(--motion-medium) var(--ease-out-expo);
+}
+
+.project-card a:hover,
+.project-card a:focus-visible {
+  transform: translateY(-4px);
 }
 
 .project-image {
@@ -619,11 +708,12 @@ p {
   object-fit: cover;
   backface-visibility: hidden;
   transform: translateZ(0);
-  transition: transform 0.9s var(--ease);
+  transition: transform 1100ms var(--ease-out-quart);
+  will-change: transform;
 }
 
 .project-card a:hover img {
-  transform: scale(1.035);
+  transform: scale(1.045);
 }
 
 .project-overlay {
@@ -843,7 +933,9 @@ p {
   min-height: 78px;
   padding-block: 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: padding 0.35s var(--ease), color 0.35s var(--ease);
+  transition:
+    color var(--motion-medium) var(--ease),
+    background-color var(--motion-medium) var(--ease);
 }
 
 .industry-list span {
@@ -863,11 +955,13 @@ p {
   font-size: 18px;
   font-style: normal;
   opacity: 0.3;
-  transition: transform 0.35s var(--ease), opacity 0.35s var(--ease);
+  transition:
+    transform var(--motion-medium) var(--ease),
+    opacity var(--motion-medium) var(--ease);
 }
 
 .industry-list a:hover {
-  padding-inline: 10px;
+  background: rgba(255, 255, 255, 0.035);
 }
 
 .industry-list a:hover i {
@@ -899,14 +993,14 @@ p {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 18px;
   transition:
-    background-color 0.45s var(--ease),
-    padding 0.45s var(--ease);
+    background-color 460ms var(--ease),
+    box-shadow 460ms var(--ease);
   will-change: transform, opacity;
 }
 
 .service-item.is-active {
-  padding-inline: 20px;
   background: var(--surface-soft);
+  box-shadow: inset 0 0 0 1px rgba(6, 89, 178, 0.1);
 }
 
 .service-row {
@@ -921,6 +1015,12 @@ p {
   color: inherit;
   text-align: left;
   cursor: pointer;
+  transition: transform var(--motion-medium) var(--ease-out-expo);
+}
+
+.service-row:hover,
+.service-row:focus-visible {
+  transform: translateX(8px);
 }
 
 .service-number {
@@ -945,9 +1045,9 @@ p {
 .service-arrow {
   font-size: 24px;
   transition:
-    color 0.4s var(--ease),
-    background-color 0.4s var(--ease),
-    transform 0.5s var(--ease);
+    color var(--motion-medium) var(--ease),
+    background-color var(--motion-medium) var(--ease),
+    transform 520ms var(--ease-out-expo);
 }
 
 .service-item.is-active .service-arrow {
@@ -959,7 +1059,7 @@ p {
 .service-gallery {
   display: grid;
   grid-template-rows: 0fr;
-  transition: grid-template-rows 0.75s var(--ease);
+  transition: grid-template-rows 820ms var(--ease-out-expo);
 }
 
 .service-item.is-active .service-gallery {
@@ -972,8 +1072,8 @@ p {
   opacity: 0;
   transform: translateY(18px);
   transition:
-    opacity 0.42s var(--ease),
-    transform 0.65s var(--ease);
+    opacity 460ms var(--ease),
+    transform 720ms var(--ease-out-expo);
 }
 
 .service-item.is-active .service-gallery-inner {
@@ -997,9 +1097,9 @@ p {
   opacity: 0;
   transform: translateY(24px) scale(0.985);
   transition:
-    opacity 0.55s var(--ease),
-    transform 0.75s var(--ease);
-  transition-delay: calc(0.1s + var(--image-index) * 0.07s);
+    opacity 620ms var(--ease),
+    transform 860ms var(--ease-out-expo);
+  transition-delay: calc(90ms + var(--image-index) * 65ms);
 }
 
 .service-item.is-active .service-gallery figure {
@@ -1024,7 +1124,7 @@ p {
   height: 100%;
   object-fit: cover;
   transform: scale(1.04);
-  transition: transform 1s var(--ease);
+  transition: transform 1200ms var(--ease-out-quart);
 }
 
 .service-item.is-active .service-gallery img {
@@ -1045,14 +1145,16 @@ p {
   font-size: 13px;
   font-weight: 600;
   transition:
-    color 0.3s var(--ease),
-    background-color 0.3s var(--ease);
+    color var(--motion-medium) var(--ease),
+    background-color var(--motion-medium) var(--ease),
+    transform var(--motion-fast) var(--ease-out-expo);
 }
 
 .service-gallery-link:hover,
 .service-gallery-link:focus-visible {
   color: var(--white);
   background: var(--blue);
+  transform: translateY(-1px);
 }
 
 .milestones {
@@ -1203,8 +1305,9 @@ p {
   letter-spacing: 0;
   line-height: 1;
   transition:
-    background 0.3s var(--ease),
-    transform 0.3s var(--ease);
+    color var(--motion-medium) var(--ease),
+    background-color var(--motion-medium) var(--ease),
+    transform var(--motion-medium) var(--ease-out-expo);
 }
 
 .footer-cta a:hover .footer-cta-button,
@@ -1227,6 +1330,11 @@ p {
   font-weight: 100;
   white-space: nowrap;
   animation: marquee 42s linear infinite;
+  will-change: transform;
+}
+
+.footer-marquee:hover div {
+  animation-play-state: paused;
 }
 
 .footer-marquee i {
@@ -1286,10 +1394,11 @@ p {
 
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
+  transform: translate3d(0, 34px, 0);
   transition:
-    opacity 0.9s var(--ease) var(--reveal-delay),
-    transform 0.9s var(--ease) var(--reveal-delay);
+    opacity var(--motion-entrance) var(--ease-out-expo) var(--reveal-delay),
+    transform var(--motion-entrance) var(--ease-out-expo) var(--reveal-delay);
+  will-change: opacity, transform;
 }
 
 .reveal.is-visible {
@@ -1300,6 +1409,30 @@ p {
 @keyframes marquee {
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slide-copy-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -1323,12 +1456,16 @@ p {
     background: var(--ink);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.35s;
+    transform: translate3d(0, -14px, 0);
+    transition:
+      opacity var(--motion-medium) var(--ease),
+      transform 480ms var(--ease-out-expo);
   }
 
   .desktop-nav.is-open {
     opacity: 1;
     pointer-events: auto;
+    transform: translate3d(0, 0, 0);
   }
 
   .desktop-nav a {
@@ -1507,6 +1644,22 @@ p {
     opacity: 1;
     transform: none;
   }
+
+  .hero h1 span,
+  .hero h1 em,
+  .hero-content > p,
+  .hero-controls,
+  .hero-slide-copy {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+
+  .logo-track,
+  .footer-marquee div {
+    transform: none;
+    animation: none !important;
+  }
 }
 
 /* Zenith institutional design system */
@@ -1516,8 +1669,8 @@ p {
   --surface-soft: oklch(0.96 0.01 245);
   --surface-strong: oklch(0.925 0.018 245);
   --white: oklch(0.97 0.006 245);
-  --blue: oklch(0.56 0.18 246);
-  --blue-active: oklch(0.47 0.18 246);
+  --blue: #0659b2;
+  --blue-active: oklch(0.39 0.14 256);
   --gray: oklch(0.7 0.015 245);
   --muted: oklch(0.52 0.025 245);
   --hairline: oklch(0.88 0.015 245);
@@ -1568,8 +1721,8 @@ body {
   color: var(--white);
   background: var(--blue);
   transition:
-    background 0.25s var(--ease),
-    transform 0.25s var(--ease);
+    background-color var(--motion-fast) var(--ease-out-expo),
+    transform var(--motion-fast) var(--ease-out-expo);
 }
 
 .desktop-nav .nav-cta:hover {
@@ -1640,8 +1793,8 @@ body {
   letter-spacing: 0;
   text-transform: none;
   transition:
-    background 0.25s,
-    transform 0.25s var(--ease);
+    background-color var(--motion-fast) var(--ease-out-expo),
+    transform var(--motion-fast) var(--ease-out-expo);
 }
 
 .ghost-button:hover {
@@ -1691,6 +1844,7 @@ body {
 .works-controls button:hover:not(:disabled) {
   color: var(--white);
   background: var(--blue);
+  transform: translateY(-1px) scale(1.02);
 }
 
 .project-card {
@@ -1720,6 +1874,17 @@ body {
   letter-spacing: 0;
   text-decoration: none;
   text-transform: none;
+  transition:
+    color var(--motion-fast) var(--ease-out-expo),
+    background-color var(--motion-fast) var(--ease-out-expo),
+    transform var(--motion-fast) var(--ease-out-expo);
+}
+
+.text-link:hover,
+.text-link:focus-visible {
+  color: var(--white);
+  background: var(--blue);
+  transform: translateY(-1px);
 }
 
 .all-projects {
@@ -1870,10 +2035,6 @@ body {
 
   .project-card {
     flex-basis: min(78vw, 340px);
-  }
-
-  .service-item.is-active {
-    padding-inline: 12px;
   }
 
   .service-gallery-images {

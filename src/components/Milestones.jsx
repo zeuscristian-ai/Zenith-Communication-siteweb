@@ -32,7 +32,7 @@ export default function Milestones() {
         const start = target === 2009 ? 2000 : 0;
         counter.textContent = `${start}${counter.dataset.suffix || ""}`;
       });
-      gsap.set(counters, { autoAlpha: 0, y: 28 });
+      gsap.set(counters, { autoAlpha: 0, y: 22, force3D: true });
 
       observer = new IntersectionObserver(
         ([entry]) => {
@@ -47,16 +47,16 @@ export default function Milestones() {
             gsap.to(counter, {
               autoAlpha: 1,
               y: 0,
-              duration: 0.65,
-              delay: index * 0.14,
-              ease: "power4.out",
+              duration: 0.58,
+              delay: index * 0.12,
+              ease: "expo.out",
             });
 
             gsap.to(state, {
               value: target,
-              duration: 2.2,
-              delay: index * 0.14,
-              ease: "power3.out",
+              duration: 1.9,
+              delay: index * 0.12,
+              ease: "power4.out",
               onUpdate: () => {
                 counter.textContent = `${Math.round(state.value)}${suffix}`;
               },

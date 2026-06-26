@@ -48,8 +48,8 @@ export default function Works() {
 
     gsap.to(viewport, {
       scrollLeft: targetIndex * step,
-      duration: 0.9,
-      ease: "power3.inOut",
+      duration: 1.05,
+      ease: "power4.inOut",
       overwrite: true,
       onComplete: () => {
         if (targetIndex >= projects.length) {
@@ -85,7 +85,7 @@ export default function Works() {
 
         viewport.scrollLeft +=
           elapsed * (AUTO_SCROLL_SPEED + wheelVelocity);
-        wheelVelocityRef.current *= Math.pow(0.88, elapsed / 16.67);
+        wheelVelocityRef.current *= Math.pow(0.9, elapsed / 16.67);
 
         if (Math.abs(wheelVelocityRef.current) < 0.002) {
           wheelVelocityRef.current = 0;
@@ -197,8 +197,8 @@ export default function Works() {
               : event.deltaY;
 
           wheelVelocityRef.current = Math.max(
-            -1.8,
-            Math.min(1.8, wheelVelocityRef.current + delta * 0.008),
+            -1.45,
+            Math.min(1.45, wheelVelocityRef.current + delta * 0.0065),
           );
         }}
         onKeyDown={(event) => {

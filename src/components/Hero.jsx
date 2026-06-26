@@ -5,6 +5,10 @@ export default function Hero() {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return undefined;
+    }
+
     const timer = window.setInterval(
       () => setActive((index) => (index + 1) % heroSlides.length),
       5200,
@@ -46,7 +50,7 @@ export default function Hero() {
               />
             ))}
           </div>
-          <div className="hero-slide-copy">
+          <div className="hero-slide-copy" key={heroSlides[active].title}>
             <small>{heroSlides[active].label}</small>
             <strong>{heroSlides[active].title}</strong>
           </div>

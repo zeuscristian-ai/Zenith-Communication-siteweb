@@ -20,12 +20,13 @@ export default function Services() {
       const cta = sectionRef.current.querySelector(".services-cta");
       const rows = gsap.utils.toArray(".service-item");
 
-      gsap.set([eyebrow, title, cta], { autoAlpha: 0, y: 28 });
-      gsap.set(rows, { autoAlpha: 0, y: 34 });
+      gsap.set([eyebrow, title, cta], { autoAlpha: 0, y: 24, force3D: true });
+      gsap.set(rows, { autoAlpha: 0, y: 28, force3D: true });
       rows.forEach((row) => {
         gsap.set(row.querySelector(".service-row").children, {
           autoAlpha: 0,
-          y: 18,
+          y: 14,
+          force3D: true,
         });
       });
 
@@ -34,13 +35,13 @@ export default function Services() {
           if (!entry.isIntersecting) return;
 
           const timeline = gsap.timeline({
-            defaults: { ease: "power4.out" },
+            defaults: { ease: "expo.out" },
           });
 
           timeline
-            .to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.55 })
-            .to(title, { autoAlpha: 1, y: 0, duration: 0.75 }, "-=0.34")
-            .to(cta, { autoAlpha: 1, y: 0, duration: 0.55 }, "-=0.42");
+            .to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.5 })
+            .to(title, { autoAlpha: 1, y: 0, duration: 0.72 }, "-=0.32")
+            .to(cta, { autoAlpha: 1, y: 0, duration: 0.5 }, "-=0.42");
 
           rows.forEach((row, index) => {
             const position = index === 0 ? "-=0.12" : "-=0.42";
@@ -48,7 +49,7 @@ export default function Services() {
             timeline
               .to(
                 row,
-                { autoAlpha: 1, y: 0, duration: 0.68 },
+                { autoAlpha: 1, y: 0, duration: 0.64 },
                 position,
               )
               .to(
@@ -56,8 +57,8 @@ export default function Services() {
                 {
                   autoAlpha: 1,
                   y: 0,
-                  duration: 0.48,
-                  stagger: 0.07,
+                  duration: 0.42,
+                  stagger: 0.055,
                 },
                 "-=0.5",
               );
